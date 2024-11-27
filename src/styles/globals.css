@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --text-dark: theme('colors.black');
+    --text-light: theme('colors.white');
+    --text-secondary: theme('colors.gray.70');
+
+    --bg-background: theme('colors.white');
+    --bg-layer: theme('colors.coolGray.10');
+    --bg-layer-inverse: theme('colors.coolGray.90');
+
+    --border-subtle: theme('colors.coolGray.20');
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-dark: theme('colors.white');
+      --text-light: theme('colors.black');
+      --text-secondary: theme('colors.gray.30');
+
+      --bg-background: theme('colors.coolGray.90');
+      --bg-layer: theme('colors.coolGray.80');
+      --bg-layer-inverse: theme('colors.white');
+
+      --border-subtle: theme('colors.coolGray.80');
+    }
+  }
+
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+  body {
+    @apply min-w-80 max-w-full bg-background text-base text-dark;
+  }
+  h1 {
+    @apply text-h1;
+  }
+  h2 {
+    @apply text-h2;
+  }
+  a {
+    @apply focus-base text-blue-60;
+  }
+  button {
+    @apply focus-base;
+  }
+  svg {
+    @apply fill-current;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-screen-2xl px-4 md:px-8;
+  }
+}
+
+@layer utilities {
+  .focus-base {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-blue-60 focus-visible:ring-offset-2;
+  }
+  .peer-focus-base {
+    @apply outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-blue-60 peer-focus-visible:ring-offset-2;
+  }
+}
