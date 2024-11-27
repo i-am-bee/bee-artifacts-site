@@ -10,7 +10,7 @@ import {
 interface Props {
   heading: string;
   Icon?: CarbonIconType;
-  tooltip?: string;
+  tooltip?: string | null;
 }
 
 export function Header({ heading, Icon, tooltip }: Props) {
