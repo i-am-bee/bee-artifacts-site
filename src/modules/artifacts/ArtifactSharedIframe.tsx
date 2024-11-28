@@ -25,7 +25,7 @@ export function ArtifactSharedIframe({ artifact }: Props) {
         type: StliteMessageType.UPDATE_CODE,
         code,
       },
-      '*'
+      USERCONTENT_SITE_URL
     );
   }, []);
 
