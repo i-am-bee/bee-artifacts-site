@@ -2,7 +2,7 @@
 
 import { ArtifactShared } from '@/app/api/artifacts/types';
 import { Loader } from '@/components/ui/Loader';
-import { USER_CONTENT_SITE_URL } from '@/utils/constants';
+import { USERCONTENT_SITE_URL } from '@/utils/constants';
 import { removeTrailingSlash } from 'openapi-fetch';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -32,7 +32,7 @@ export function ArtifactSharedIframe({ artifact }: Props) {
   const handleMessage = useCallback((event: MessageEvent<StliteMessage>) => {
     const { origin, data } = event;
 
-    if (origin !== removeTrailingSlash(USER_CONTENT_SITE_URL)) {
+    if (origin !== removeTrailingSlash(USERCONTENT_SITE_URL)) {
       return;
     }
 
@@ -62,7 +62,7 @@ export function ArtifactSharedIframe({ artifact }: Props) {
     <div className="relative h-full w-full">
       <iframe
         ref={iframeRef}
-        src={USER_CONTENT_SITE_URL}
+        src={USERCONTENT_SITE_URL}
         title="Bee Artifact"
         sandbox="allow-scripts allow-downloads allow-same-origin"
         className="h-full w-full"
