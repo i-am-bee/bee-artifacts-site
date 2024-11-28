@@ -75,8 +75,6 @@ export function WarningModal({ artifactId }: Props) {
       </div>
 
       <div className="mt-8 flex items-center justify-end gap-x-4 md:mt-12">
-        <Button kind="ghost">Honey, no thanks</Button>
-
         <div className="grid md:min-w-[11rem]">
           <Button kind="secondary" Icon={ArrowRight} onClick={onViewAppClick}>
             View app
