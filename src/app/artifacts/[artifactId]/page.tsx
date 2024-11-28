@@ -37,7 +37,7 @@ export default async function ArtifactPage({ params, searchParams }: Props) {
     <>
       <Header heading={artifact.name} tooltip={artifact.description} />
 
-      <Main className="py-4 md:py-8">
+      <Main className="flex py-4 md:py-8">
         <Container>
           <ArtifactSharedIframe artifact={artifact} />
         </Container>

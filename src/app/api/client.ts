@@ -1,15 +1,13 @@
+import { API_URL } from '@/utils/constants';
+import { addTrailingSlash } from '@/utils/helpers';
 import fetchRetry from 'fetch-retry';
 import { StatusCodes } from 'http-status-codes';
 import createClient from 'openapi-fetch';
 import { paths } from './schema';
 
-let API_URL = process.env.API_URL ?? '/api/';
+const apiUrl = addTrailingSlash(API_URL ?? '/api/');
 
-if (!API_URL.endsWith('/')) {
-  API_URL += '/';
-}
-
-export const client = createApiClient<paths>(API_URL);
+export const client = createApiClient<paths>(apiUrl);
 
 function createApiClient<T extends Record<string, any>>(
   baseUrl: string,

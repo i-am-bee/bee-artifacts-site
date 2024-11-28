@@ -72,6 +72,7 @@ export default {
       semibold: '600',
     },
     borderRadius: {
+      circle: '50%',
       1: '0.25rem',
       2: '0.5rem',
     },

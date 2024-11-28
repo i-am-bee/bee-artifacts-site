@@ -1,4 +1,5 @@
 import { createApiErrorResponse } from '@/app/api/utils/createApiErrorResponse';
+import { API_URL } from '@/utils/constants';
 import httpProxy from 'http-proxy';
 import { NextApiRequest, NextApiResponse } from 'next';
 import http from 'node:http';
@@ -13,7 +14,7 @@ const agents: Record<string, any> = {
   http: new http.Agent(agentOptions),
   https: new https.Agent(agentOptions),
 };
-const target = new URL(process.env.API_URL!);
+const target = new URL(API_URL);
 
 const proxy = httpProxy.createProxy({
   target,
