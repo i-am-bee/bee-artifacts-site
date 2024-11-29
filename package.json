@@ -8,8 +8,9 @@
     "start": "next start",
     "start:dev": "next dev --turbopack",
     "lint": "next lint && pnpm lint:css",
-    "lint:css": "stylelint '**/*.scss'",
-    "format": "prettier --write ."
+    "lint:css": "stylelint '**/*.css'",
+    "format": "prettier --write .",
+    "schema:generate": "dotenv -e .env.local cross-var -- pnpm dlx openapi-typescript %SCHEMA_API_URL% -o ./src/app/api/schema.d.ts --alphabetize"
   },
   "dependencies": {
     "@carbon/colors": "^11.28.0",
@@ -18,18 +19,28 @@
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "fetch-retry": "^6.0.0",
+    "http-proxy": "^1.18.1",
+    "http-status-codes": "^2.3.0",
     "next": "15.0.3",
+    "openapi-fetch": "^0.13.0",
+    "openapi-typescript-helpers": "^0.0.15",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "use-local-storage-state": "^19.5.0",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@svgr/webpack": "^8.1.0",
+    "@types/http-proxy": "^1.17.15",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
+    "cross-var": "^1.1.0",
+    "dotenv-cli": "^7.4.4",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",

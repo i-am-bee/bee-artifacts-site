@@ -22,6 +22,7 @@ export function Footer({ showReportButton }: Props) {
             <p className="md:text-right">
               Apps are user-generated and may contain unverified or potentially
               unsafe content.{' '}
+              {/* TODO: This should be a link with mailto: in first iteration */}
               <button type="button" className="underline hover:no-underline">
                 Report
               </button>

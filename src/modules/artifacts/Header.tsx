@@ -10,7 +10,7 @@ import {
 interface Props {
   heading: string;
   Icon?: CarbonIconType;
-  tooltip?: string;
+  tooltip?: string | null;
 }
 
 export function Header({ heading, Icon, tooltip }: Props) {
@@ -36,6 +36,7 @@ export function Header({ heading, Icon, tooltip }: Props) {
             )}
           </div>
 
+          {/* TODO: Should link to bee-ui */}
           <div className="justify-self-center whitespace-nowrap md:col-start-3 md:justify-self-end">
             <Button kind="secondary" size="sm" Icon={DirectionFork}>
               Copy to edit

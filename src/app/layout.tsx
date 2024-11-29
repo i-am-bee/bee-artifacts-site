@@ -21,6 +21,7 @@ const ibmPlexSans = localFont({
 
 export const metadata: Metadata = {
   title: 'Bee Artifact',
+  icons: { icon: '//www.ibm.com/favicon.ico' },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
