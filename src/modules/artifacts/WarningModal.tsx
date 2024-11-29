@@ -18,14 +18,14 @@ export function WarningModal({ artifactId }: Props) {
   const hideWarning = getStorageValue('hideWarning');
   const visitedArtifacts = getStorageValue('visitedArtifacts');
 
-  const onDoNotShowAgainChange = useCallback(
+  const handleDoNotShowAgainChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setDoNotShowAgain(event.target.checked);
     },
     []
   );
 
-  const onViewAppClick = useCallback(() => {
+  const handleViewAppClick = useCallback(() => {
     setStorageValue(
       'visitedArtifacts',
       visitedArtifacts ? [...visitedArtifacts, artifactId] : [artifactId]
@@ -69,14 +69,21 @@ export function WarningModal({ artifactId }: Props) {
       </div>
 
       <div className="mt-4 flex md:mt-6">
-        <Checkbox checked={doNotShowAgain} onChange={onDoNotShowAgainChange}>
+        <Checkbox
+          checked={doNotShowAgain}
+          onChange={handleDoNotShowAgainChange}
+        >
           Don&apos;t show this message again
         </Checkbox>
       </div>
 
       <div className="mt-8 flex items-center justify-end gap-x-4 md:mt-12">
         <div className="grid md:min-w-[11rem]">
-          <Button kind="secondary" Icon={ArrowRight} onClick={onViewAppClick}>
+          <Button
+            kind="secondary"
+            Icon={ArrowRight}
+            onClick={handleViewAppClick}
+          >
             View app
           </Button>
         </div>
