@@ -8,12 +8,12 @@ import { WarningModal } from '@/modules/artifacts/WarningModal';
 import { notFound } from 'next/navigation';
 
 interface Props {
-  params: {
+  params: Promise<{
     artifactId: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     secret?: string;
-  };
+  }>;
 }
 
 export default async function ArtifactPage({ params, searchParams }: Props) {

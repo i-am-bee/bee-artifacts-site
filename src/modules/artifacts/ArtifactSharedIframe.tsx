@@ -2,8 +2,9 @@
 
 import { ArtifactShared } from '@/app/api/artifacts/types';
 import { Loader } from '@/components/ui/Loader';
+import { Theme, useTheme } from '@/hooks/useTheme';
 import { USERCONTENT_SITE_URL } from '@/utils/constants';
-import { removeTrailingSlash } from 'openapi-fetch';
+import { removeTrailingSlash } from '@/utils/helpers';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Props {
@@ -13,20 +14,27 @@ interface Props {
 export function ArtifactSharedIframe({ artifact }: Props) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [state, setState] = useState<State>(State.LOADING);
+  const theme = useTheme();
+
   const { source_code: code } = artifact;
+
+  const postMessage = (message: PostMessage) => {
+    iframeRef.current?.contentWindow?.postMessage(
+      message,
+      USERCONTENT_SITE_URL
+    );
+  };
+
+  const updateTheme = useCallback((theme: Theme) => {
+    postMessage({ type: PostMessageType.UPDATE_THEME, theme });
+  }, []);
 
   const updateCode = useCallback((code: string | undefined) => {
     if (!code) {
       return;
     }
 
-    iframeRef.current?.contentWindow?.postMessage(
-      {
-        type: StliteMessageType.UPDATE_CODE,
-        code,
-      },
-      USERCONTENT_SITE_URL
-    );
+    postMessage({ type: PostMessageType.UPDATE_CODE, code });
   }, []);
 
   const handleMessage = useCallback((event: MessageEvent<StliteMessage>) => {
@@ -44,11 +52,19 @@ export function ArtifactSharedIframe({ artifact }: Props) {
     }
   }, []);
 
+  const handleIframeLoad = useCallback(() => {
+    updateTheme(theme);
+  }, [theme, updateTheme]);
+
+  useEffect(() => {
+    updateTheme(theme);
+  }, [theme, updateTheme]);
+
   useEffect(() => {
     if (state === State.READY) {
       updateCode(code);
     }
-  }, [code, state, updateCode]);
+  }, [code, state, theme, updateCode]);
 
   useEffect(() => {
     window.addEventListener('message', handleMessage);
@@ -66,6 +82,7 @@ export function ArtifactSharedIframe({ artifact }: Props) {
         title="Bee Artifact"
         sandbox="allow-scripts allow-downloads allow-same-origin"
         className="h-full w-full"
+        onLoad={handleIframeLoad}
       />
 
       {state === State.LOADING && (
@@ -77,8 +94,19 @@ export function ArtifactSharedIframe({ artifact }: Props) {
   );
 }
 
-enum StliteMessageType {
+type PostMessage =
+  | {
+      type: PostMessageType.UPDATE_CODE;
+      code: string;
+    }
+  | {
+      type: PostMessageType.UPDATE_THEME;
+      theme: Theme;
+    };
+
+enum PostMessageType {
   UPDATE_CODE = 'updateCode',
+  UPDATE_THEME = 'updateTheme',
   // TODO: Add error handling
   ERROR = 'error',
 }
