@@ -26,6 +26,8 @@ ENV CI=1
 COPY --from=deps ${APP_DIR}/node_modules ./node_modules
 COPY . .
 
+ARG NEXT_PUBLIC_USERCONTENT_SITE_URL
+
 RUN corepack enable pnpm && pnpm run build;
 
 # Production image, copy all the files and run next
