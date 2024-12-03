@@ -25,6 +25,10 @@ export function ArtifactSharedIframe({ artifact }: Props) {
     );
   };
 
+  const setFullscreen = useCallback((value: boolean) => {
+    postMessage({ type: PostMessageType.SET_FULLSCREEN, value });
+  }, []);
+
   const updateTheme = useCallback((theme: Theme) => {
     postMessage({ type: PostMessageType.UPDATE_THEME, theme });
   }, []);
@@ -54,7 +58,8 @@ export function ArtifactSharedIframe({ artifact }: Props) {
 
   const handleIframeLoad = useCallback(() => {
     updateTheme(theme);
-  }, [theme, updateTheme]);
+    setFullscreen(true);
+  }, [theme, updateTheme, setFullscreen]);
 
   useEffect(() => {
     updateTheme(theme);
@@ -102,11 +107,16 @@ type PostMessage =
   | {
       type: PostMessageType.UPDATE_THEME;
       theme: Theme;
+    }
+  | {
+      type: PostMessageType.SET_FULLSCREEN;
+      value: boolean;
     };
 
 enum PostMessageType {
   UPDATE_CODE = 'updateCode',
   UPDATE_THEME = 'updateTheme',
+  SET_FULLSCREEN = 'setFullscreen',
   // TODO: Add error handling
   ERROR = 'error',
 }
