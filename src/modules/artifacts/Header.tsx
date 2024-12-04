@@ -1,29 +1,23 @@
+import { ArtifactSharedIcon } from '@/app/api/artifacts/types';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Tooltip } from '@/components/ui/Tooltip';
-import {
-  CarbonIconType,
-  DirectionFork,
-  Information,
-} from '@carbon/icons-react';
+import { DirectionFork, Information } from '@carbon/icons-react';
+import { ArtifactIcon } from './ArtifactIcon';
 
 interface Props {
   heading: string;
-  Icon?: CarbonIconType;
+  icon?: ArtifactSharedIcon;
   tooltip?: string | null;
 }
 
-export function Header({ heading, Icon, tooltip }: Props) {
+export function Header({ heading, icon, tooltip }: Props) {
   return (
     <header className="sticky left-0 top-0 border-b border-b-subtle bg-background py-3 md:py-5">
       <Container>
         <div className="grid items-center justify-center gap-x-4 gap-y-2 md:grid-cols-[1fr,auto,1fr]">
           <div className="flex items-center gap-x-1 md:col-start-2">
-            {Icon && (
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-2 bg-coolGray-10 dark:bg-coolGray-80">
-                <Icon size={16} />
-              </div>
-            )}
+            {icon && <ArtifactIcon name={icon} />}
 
             <h1 className="text-base font-semibold text-coolGray-100 dark:text-white">
               {heading}

@@ -1,6 +1,8 @@
 import { client } from '../client';
 import { assertSuccessResponse } from '../utils/assertSuccessResponse';
 import { fetchEntity } from '../utils/fetchEntity';
+import { decodeEntityWithMetadata } from '../utils/metadata';
+import { ArtifactShared } from './types';
 
 type Params = {
   id: string;
@@ -23,5 +25,7 @@ async function readArtifactShared({ id, secret }: Params) {
 export async function fetchArtifactShared(params: Params) {
   const artifact = await fetchEntity(() => readArtifactShared(params));
 
-  return artifact;
+  return artifact
+    ? decodeEntityWithMetadata<ArtifactShared>(artifact)
+    : artifact;
 }
