@@ -12,21 +12,21 @@ interface Props {
     artifactId: string;
   }>;
   searchParams: Promise<{
-    secret?: string;
+    token?: string;
   }>;
 }
 
 export default async function ArtifactPage({ params, searchParams }: Props) {
   const { artifactId } = await params;
-  const { secret } = await searchParams;
+  const { token } = await searchParams;
 
-  if (!secret) {
+  if (!token) {
     notFound();
   }
 
   const artifact = await fetchArtifactShared({
     id: artifactId,
-    secret,
+    token: token,
   });
 
   if (!artifact) {
@@ -43,7 +43,7 @@ export default async function ArtifactPage({ params, searchParams }: Props) {
 
       <Main className="flex py-2 md:py-6">
         <Container className="px-2 md:px-6">
-          <ArtifactSharedIframe artifact={artifact} />
+          <ArtifactSharedIframe artifact={artifact} token={token} />
         </Container>
       </Main>
 

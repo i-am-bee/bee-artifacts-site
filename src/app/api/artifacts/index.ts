@@ -6,13 +6,13 @@ import { ArtifactShared } from './types';
 
 type Params = {
   id: string;
-  secret: string;
+  token: string;
 };
 
-async function readArtifactShared({ id, secret }: Params) {
+async function readArtifactShared({ id, token }: Params) {
   const res = await client.GET('/v1/artifacts/{artifact_id}/shared', {
     params: {
-      query: { secret },
+      query: { token },
       path: { artifact_id: id },
     },
   });
