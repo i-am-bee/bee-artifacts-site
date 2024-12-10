@@ -35,11 +35,7 @@ export default async function ArtifactPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <Header
-        heading={artifact.name}
-        tooltip={artifact.description}
-        icon={artifact.uiMetadata.icon}
-      />
+      <Header artifact={artifact} token={token} />
 
       <Main className="flex py-2 md:py-6">
         <Container className="px-2 md:px-6">
