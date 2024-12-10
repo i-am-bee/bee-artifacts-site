@@ -8,10 +8,21 @@ import { removeTrailingSlash } from '@/utils/helpers';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatCompletionCreateBody } from '@/app/api/apps/types';
 import { createChatCompletion, modulesToPackages } from '@/app/api/apps';
+import { ApiError } from '@/app/api/errors';
 
 interface Props {
   artifact: ArtifactShared;
   token: string;
+}
+
+function getErrorMessage(error: unknown) {
+  if (error instanceof ApiError && error.code === 'too_many_requests') {
+    return 'You have exceeded the limit for using LLM functions';
+  }
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  return 'Unknown error when calling LLM function.';
 }
 
 export function ArtifactSharedIframe({ artifact, token }: Props) {
@@ -59,33 +70,36 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
         setState(State.READY);
       }
       if (data.type === RecieveMessageType.REQUEST) {
-        switch (data.request_type) {
-          case 'modules_to_packages':
-            const packagesResponse = await modulesToPackages(
-              data.payload.modules,
-              token
-            );
-            postMessage({
-              type: PostMessageType.RESPONSE,
-              request_id: data.request_id,
-              payload: packagesResponse,
-            });
-            break;
-          case 'chat_completion':
-            const response = await createChatCompletion(data.payload, token);
-            const message = response?.choices[0]?.message?.content;
-            postMessage({
-              type: PostMessageType.RESPONSE,
-              request_id: data.request_id,
-              payload: {
-                message,
-                ...(message ? {} : { error: 'Unknown error occurred.' }),
-              },
-            });
-            break;
-          default:
-            //Todo
-            break;
+        try {
+          switch (data.request_type) {
+            case 'modules_to_packages':
+              const packagesResponse = await modulesToPackages(
+                data.payload.modules,
+                token
+              );
+              postMessage({
+                type: PostMessageType.RESPONSE,
+                request_id: data.request_id,
+                payload: packagesResponse,
+              });
+              break;
+            case 'chat_completion':
+              const response = await createChatCompletion(data.payload, token);
+              const message = response?.choices[0]?.message?.content;
+              if (!message) throw new Error(); // missing completion
+              postMessage({
+                type: PostMessageType.RESPONSE,
+                request_id: data.request_id,
+                payload: { message },
+              });
+              break;
+          }
+        } catch (err) {
+          postMessage({
+            type: PostMessageType.RESPONSE,
+            request_id: data.request_id,
+            payload: { error: getErrorMessage(err) },
+          });
         }
       }
     },
