@@ -1,6 +1,6 @@
 {
   "name": "bee-artifacts-site",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "author": "IBM Corp.",
   "scripts": {
@@ -10,13 +10,15 @@
     "lint": "next lint && pnpm lint:css",
     "lint:css": "stylelint '**/*.css'",
     "format": "prettier --write .",
-    "schema:generate": "dotenv -e .env.local cross-var -- pnpm dlx openapi-typescript %SCHEMA_API_URL% -o ./src/app/api/schema.d.ts --alphabetize"
+    "schema:generate": "dotenv -e .env.local cross-var -- pnpm dlx openapi-typescript %SCHEMA_API_URL% -o ./src/app/api/schema.d.ts --alphabetize",
+    "release": "release-it"
   },
   "dependencies": {
     "@carbon/colors": "^11.28.0",
     "@carbon/icons-react": "^11.53.0",
     "@floating-ui/react": "^0.26.28",
     "@radix-ui/react-slot": "^1.1.0",
+    "@release-it/conventional-changelog": "^9.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "fetch-retry": "^6.0.0",
@@ -27,6 +29,7 @@
     "openapi-typescript-helpers": "^0.0.15",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "release-it": "^17.10.0",
     "use-local-storage-state": "^19.5.0",
     "usehooks-ts": "^3.1.0"
   },
