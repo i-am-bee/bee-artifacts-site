@@ -1,4 +1,7 @@
 export const API_URL = process.env.API_URL!;
+export const NEXT_PUBLIC_MAX_DAILY_COMPLETION_REQUESTS_PER_APP = Number(
+  process.env.NEXT_PUBLIC_MAX_DAILY_COMPLETION_REQUESTS_PER_APP ?? 50
+);
 
 export const USERCONTENT_SITE_URL =
   process.env.NEXT_PUBLIC_USERCONTENT_SITE_URL!;
