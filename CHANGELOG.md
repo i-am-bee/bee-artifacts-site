@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>0.0.3 (2024-12-12)</small>
+
+* feat(apps): allow links to open popups (#11) ([c8f90c8](https://github.com/i-am-bee/bee-artifacts-site/commit/c8f90c8)), closes [#11](https://github.com/i-am-bee/bee-artifacts-site/issues/11)
+
 ## <small>0.0.2 (2024-12-11)</small>
 
 * chore: add release-it script ([81c77aa](https://github.com/i-am-bee/bee-artifacts-site/commit/81c77aa))
