@@ -135,7 +135,13 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
         ref={iframeRef}
         src={USERCONTENT_SITE_URL}
         title="Bee Artifact"
-        sandbox="allow-scripts allow-downloads allow-same-origin"
+        sandbox={[
+          'allow-scripts',
+          'allow-downloads',
+          'allow-same-origin',
+          'allow-popups',
+          'allow-popups-to-escape-sandbox',
+        ].join(' ')}
         className="h-full w-full"
         onLoad={handleIframeLoad}
       />
