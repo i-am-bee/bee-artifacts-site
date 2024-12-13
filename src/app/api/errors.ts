@@ -48,3 +48,5 @@ export class HttpError extends CustomError {
     this.body = body;
   }
 }
+
+export class DailyLimitExceededError extends CustomError {}

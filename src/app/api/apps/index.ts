@@ -17,11 +17,13 @@
 import { assertSuccessResponse } from '@/app/api/utils/assertSuccessResponse';
 import { client } from '@/app/api/client';
 import { ChatCompletionCreateBody } from '@/app/api/apps/types';
+import { checkDailyUsageLimit } from '@/app/api/utils';
 
 export async function createChatCompletion(
   body: ChatCompletionCreateBody,
   token: string
 ) {
+  checkDailyUsageLimit(token);
   const res = await client.POST('/v1/chat/completions', {
     body,
     headers: { Authorization: `Bearer ${token}` },
@@ -32,10 +34,8 @@ export async function createChatCompletion(
 
 export async function modulesToPackages(modules: string[], token: string) {
   const res = await client.GET('/v1/ui/modules_to_packages', {
-    params: {
-      query: { modules },
-      headers: { Authorization: `Bearer ${token}` },
-    },
+    params: { query: { modules } },
+    headers: { Authorization: `Bearer ${token}` },
   });
   assertSuccessResponse(res);
   return res.data;
