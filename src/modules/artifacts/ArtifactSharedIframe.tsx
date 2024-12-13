@@ -130,7 +130,7 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
   }, [handleMessage]);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full lg:mx-auto lg:w-1/2 lg:min-w-[39rem] lg:max-w-[calc(theme(screens.2xl)-theme(spacing.12))]">
       <iframe
         ref={iframeRef}
         src={USERCONTENT_SITE_URL}

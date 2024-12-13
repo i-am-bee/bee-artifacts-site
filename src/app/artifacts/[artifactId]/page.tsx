@@ -38,7 +38,7 @@ export default async function ArtifactPage({ params, searchParams }: Props) {
       <Header artifact={artifact} token={token} />
 
       <Main className="flex py-2 md:py-6">
-        <Container className="px-2 md:px-6">
+        <Container className="px-2 md:px-6" size="full">
           <ArtifactSharedIframe artifact={artifact} token={token} />
         </Container>
       </Main>
