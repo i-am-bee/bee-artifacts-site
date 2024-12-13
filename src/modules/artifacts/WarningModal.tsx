@@ -42,7 +42,7 @@ export function WarningModal({ artifactId }: Props) {
 
   return (
     <Modal>
-      <div className="mb-4 flex aspect-[544/256] items-center justify-center rounded-2 bg-magenta-20 p-5">
+      <div className="mb-4 flex aspect-[544/256] items-center justify-center rounded-2 bg-coolGray-10 p-5">
         <div className="w-full max-w-[4.125rem] md:max-w-[8.25rem]">
           <Icon />
         </div>
