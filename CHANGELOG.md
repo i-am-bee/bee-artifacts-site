@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>0.0.4 (2024-12-13)</small>
+
+* feat(apps): add naive limit using local storage (#12) ([2ff1789](https://github.com/i-am-bee/bee-artifacts-site/commit/2ff1789)), closes [#12](https://github.com/i-am-bee/bee-artifacts-site/issues/12)
+
 ## <small>0.0.3 (2024-12-12)</small>
 
 * feat(apps): allow links to open popups (#11) ([c8f90c8](https://github.com/i-am-bee/bee-artifacts-site/commit/c8f90c8)), closes [#11](https://github.com/i-am-bee/bee-artifacts-site/issues/11)
