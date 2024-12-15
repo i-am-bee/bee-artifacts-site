@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>0.0.6 (2024-12-15)</small>
+
+* feat(footer): update copy ([be07d51](https://github.com/i-am-bee/bee-artifacts-site/commit/be07d51))
+
 ## <small>0.0.5 (2024-12-15)</small>
 
 * fix: artifact container width ([dcc78b4](https://github.com/i-am-bee/bee-artifacts-site/commit/dcc78b4))
