@@ -52,18 +52,18 @@ export function WarningModal({ artifactId }: Props) {
 
       <div className="flex flex-col gap-y-4 md:gap-y-6">
         <p>
-          You are viewing a user-generated app. Apps are reusable widgets that
-          can be used to streamline simple, everyday tasks.
+          You are viewing a user-generated app. Apps created with BeeAI are
+          reusable and can streamline simple, everyday tasks.
         </p>
 
         <p>
-          This app was made and published using Bee, a next generation AI
+          This app was made and published using BeeAI, an experimental
           productivity solution. Use discretion when engaging with apps, as they
           may contain unsafe or potentially unsafe content.
         </p>
 
         <p>
-          You can also copy and edit this app using your own Bee account to
+          You can also copy and edit this app using your own BeeAI account to
           personalize it to your needs.
         </p>
       </div>
