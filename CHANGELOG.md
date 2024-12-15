@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>0.0.5 (2024-12-15)</small>
+
+* fix: artifact container width ([dcc78b4](https://github.com/i-am-bee/bee-artifacts-site/commit/dcc78b4))
+* fix: from QA ([094a7f8](https://github.com/i-am-bee/bee-artifacts-site/commit/094a7f8))
+
 ## <small>0.0.4 (2024-12-13)</small>
 
 * feat(apps): add naive limit using local storage (#12) ([2ff1789](https://github.com/i-am-bee/bee-artifacts-site/commit/2ff1789)), closes [#12](https://github.com/i-am-bee/bee-artifacts-site/issues/12)
