@@ -134,7 +134,7 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
       <iframe
         ref={iframeRef}
         src={USERCONTENT_SITE_URL}
-        title="Bee Artifact"
+        title="BeeAI Artifact"
         sandbox={[
           'allow-scripts',
           'allow-downloads',
