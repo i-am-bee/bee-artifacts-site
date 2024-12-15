@@ -14,7 +14,7 @@ export function Footer({ showReportButton }: Props) {
             <span>Made with</span>{' '}
             <span className="inline-flex items-center gap-x-0.5 align-top text-dark">
               <BeeIcon className="h-3 w-3" />
-              <strong>Bee</strong>
+              <strong>BeeAI</strong>
             </span>
           </p>
 
