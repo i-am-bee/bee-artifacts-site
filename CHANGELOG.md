@@ -1,5 +1,12 @@
 # Changelog
 
+## <small>0.0.7 (2024-12-16)</small>
+
+* feat: mailto link in the footer (#15) ([5d4774a](https://github.com/i-am-bee/bee-artifacts-site/commit/5d4774a)), closes [#15](https://github.com/i-am-bee/bee-artifacts-site/issues/15)
+* feat: minor copy update ([088a9c1](https://github.com/i-am-bee/bee-artifacts-site/commit/088a9c1))
+* feat: minor visual updates ([13ca7ef](https://github.com/i-am-bee/bee-artifacts-site/commit/13ca7ef))
+* chore: copy in warning modal (#16) ([8120aca](https://github.com/i-am-bee/bee-artifacts-site/commit/8120aca)), closes [#16](https://github.com/i-am-bee/bee-artifacts-site/issues/16)
+
 ## <small>0.0.6 (2024-12-15)</small>
 
 * feat(footer): update copy ([be07d51](https://github.com/i-am-bee/bee-artifacts-site/commit/be07d51))
