@@ -20,7 +20,7 @@ const ibmPlexSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'BeeAI Artifact',
+  title: 'BeeAI App',
   icons: { icon: '//www.ibm.com/favicon.ico' },
 };
 

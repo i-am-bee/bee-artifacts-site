@@ -8,6 +8,8 @@
     --text-light: theme('colors.white');
     --text-secondary: theme('colors.gray.70');
 
+    --text-link: theme('colors.blue.60');
+
     --bg-background: theme('colors.white');
     --bg-layer: theme('colors.coolGray.10');
     --bg-layer-inverse: theme('colors.coolGray.90');
@@ -20,6 +22,8 @@
       --text-dark: theme('colors.white');
       --text-light: theme('colors.black');
       --text-secondary: theme('colors.gray.30');
+
+      --text-link: theme('colors.white');
 
       --bg-background: theme('colors.coolGray.90');
       --bg-layer: theme('colors.coolGray.80');
@@ -42,7 +46,7 @@
     @apply text-h2;
   }
   a {
-    @apply focus-base text-blue-60;
+    @apply focus-base text-link;
   }
   button {
     @apply focus-base;
