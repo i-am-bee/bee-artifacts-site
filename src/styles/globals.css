@@ -13,6 +13,7 @@
     --bg-background: theme('colors.white');
     --bg-layer: theme('colors.coolGray.10');
     --bg-layer-inverse: theme('colors.coolGray.90');
+    --bg-overlay: rgba(33, 39, 42, 0.5);
 
     --border-subtle: theme('colors.coolGray.20');
   }
@@ -28,6 +29,7 @@
       --bg-background: theme('colors.coolGray.90');
       --bg-layer: theme('colors.coolGray.80');
       --bg-layer-inverse: theme('colors.white');
+      --bg-overlay: theme('colors.gray.100/0.7');
 
       --border-subtle: theme('colors.coolGray.80');
     }

@@ -87,6 +87,7 @@ export default {
         background: 'var(--bg-background)',
         layer: 'var(--bg-layer)',
         'layer-inverse': 'var(--bg-layer-inverse)',
+        overlay: 'var(--bg-overlay)',
       },
       borderColor: {
         subtle: 'var(--border-subtle)',
