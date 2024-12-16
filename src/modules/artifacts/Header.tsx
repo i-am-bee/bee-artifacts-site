@@ -1,10 +1,9 @@
 import { ArtifactShared } from '@/app/api/artifacts/types';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
-import { Tooltip } from '@/components/ui/Tooltip';
-import { DirectionFork, Information } from '@carbon/icons-react';
-import { ArtifactIcon } from './ArtifactIcon';
 import { BEE_SITE_URL } from '@/utils/constants';
+import { DirectionFork } from '@carbon/icons-react';
+import { ArtifactIcon } from './ArtifactIcon';
 
 interface Props {
   artifact: ArtifactShared;
@@ -24,12 +23,6 @@ export function Header({ artifact, token }: Props) {
             <h1 className="text-base font-semibold text-coolGray-100 dark:text-white">
               {artifact.name}
             </h1>
-
-            {artifact.description && (
-              <Tooltip content={artifact.description}>
-                <Information />
-              </Tooltip>
-            )}
           </div>
 
           <div className="justify-self-center whitespace-nowrap md:col-start-3 md:justify-self-end">

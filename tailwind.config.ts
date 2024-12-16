@@ -81,6 +81,7 @@ export default {
         dark: 'var(--text-dark)',
         light: 'var(--text-light)',
         secondary: 'var(--text-secondary)',
+        link: 'var(--text-link)',
       },
       backgroundColor: {
         background: 'var(--bg-background)',
