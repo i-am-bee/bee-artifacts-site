@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>0.0.9 (2024-12-17)</small>
+
+* fix: responsive styles for iOS (#19) ([f02be25](https://github.com/i-am-bee/bee-artifacts-site/commit/f02be25)), closes [#19](https://github.com/i-am-bee/bee-artifacts-site/issues/19)
+
 ## <small>0.0.8 (2024-12-17)</small>
 
 * fix: modal overlay background (#18) ([a9f8d1a](https://github.com/i-am-bee/bee-artifacts-site/commit/a9f8d1a)), closes [#18](https://github.com/i-am-bee/bee-artifacts-site/issues/18)
