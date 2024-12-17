@@ -12,7 +12,7 @@ interface Props {
 
 export function Header({ artifact, token }: Props) {
   return (
-    <header className="sticky left-0 top-0 border-b border-b-subtle bg-background py-3 md:py-5">
+    <header className="sticky left-0 top-0 z-10 border-b border-b-subtle bg-background py-3 md:py-5">
       <Container>
         <div className="grid items-center justify-center gap-x-4 gap-y-2 md:grid-cols-[1fr,auto,1fr]">
           <div className="flex items-center gap-x-1 md:col-start-2">

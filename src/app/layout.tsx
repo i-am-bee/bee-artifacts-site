@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={`${ibmPlexSans.variable} antialiased`} lang="en">
       <body className="bg-layer">
-        <div className="flex min-h-screen flex-col">{children}</div>
+        <div className="flex h-svh flex-col">{children}</div>
       </body>
     </html>
   );
