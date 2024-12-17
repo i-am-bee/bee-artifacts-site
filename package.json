@@ -1,6 +1,6 @@
 {
   "name": "bee-artifacts-site",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "author": "IBM Corp.",
   "scripts": {

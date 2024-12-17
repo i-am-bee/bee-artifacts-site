@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>0.0.8 (2024-12-17)</small>
+
+* fix: modal overlay background (#18) ([a9f8d1a](https://github.com/i-am-bee/bee-artifacts-site/commit/a9f8d1a)), closes [#18](https://github.com/i-am-bee/bee-artifacts-site/issues/18)
+
 ## <small>0.0.7 (2024-12-16)</small>
 
 * feat: mailto link in the footer (#15) ([5d4774a](https://github.com/i-am-bee/bee-artifacts-site/commit/5d4774a)), closes [#15](https://github.com/i-am-bee/bee-artifacts-site/issues/15)
