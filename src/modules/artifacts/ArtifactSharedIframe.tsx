@@ -39,19 +39,20 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
     );
   }, [iframeLoadCount]);
 
-  const [appState, setAppState] = useState<AppState>({
-    code: artifact.source_code ?? 'async def main():\n  pass',
-    theme: theme,
-    fullscreen: true,
-    ancestorOrigin: '',
-    config: {
-      canFixError: false
-    }
-  });
-  useEffect(() => { setAppState(state => ({ ...state, ancestorOrigin: window.location.origin })); }, []);
-  useEffect(() => { setAppState(state => ({ ...state, theme })) }, [theme]);
-  useEffect(() => { if(artifact.source_code) setAppState(state => ({ ...state, code: artifact.source_code as string })) }, [artifact.source_code]);
-  useEffect(() => { postMessage({ type: PostMessageType.UPDATE_STATE, stateChange: appState }) }, [appState, postMessage]);
+  useEffect(() => {
+    postMessage({
+      type: PostMessageType.UPDATE_STATE,
+      stateChange: {
+        code: artifact.source_code ?? undefined,
+        theme: theme,
+        fullscreen: true,
+        ancestorOrigin: window.location.origin,
+        config: {
+          canFixError: false
+        }
+      }
+    })
+  }, [artifact.source_code, postMessage, theme]);
 
   const handleMessage = useCallback(
     async (event: MessageEvent<StliteMessage>) => {
