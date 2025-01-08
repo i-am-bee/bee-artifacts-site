@@ -2,7 +2,7 @@
 
 import { ArtifactShared } from '@/app/api/artifacts/types';
 import { Loader } from '@/components/ui/Loader';
-import { Theme, useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks/useTheme';
 import { USERCONTENT_SITE_URL } from '@/utils/constants';
 import { removeTrailingSlash } from '@/utils/helpers';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -29,31 +29,29 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [state, setState] = useState<State>(State.LOADING);
   const theme = useTheme();
+  const [iframeLoadCount, setIframeLoadCount] = useState<number>(0);
 
-  const { source_code: code } = artifact;
-
-  const postMessage = (message: PostMessage) => {
+  const postMessage = useCallback((message: PostMessage) => {
+    if(iframeLoadCount === 0) return;
     iframeRef.current?.contentWindow?.postMessage(
       message,
       USERCONTENT_SITE_URL
     );
-  };
+  }, [iframeLoadCount]);
 
-  const setFullscreen = useCallback((value: boolean) => {
-    postMessage({ type: PostMessageType.SET_FULLSCREEN, value });
-  }, []);
-
-  const updateTheme = useCallback((theme: Theme) => {
-    postMessage({ type: PostMessageType.UPDATE_THEME, theme });
-  }, []);
-
-  const updateCode = useCallback((code: string | undefined) => {
-    if (!code) {
-      return;
+  const [appState, setAppState] = useState<AppState>({
+    code: artifact.source_code ?? 'async def main():\n  pass',
+    theme: theme,
+    fullscreen: true,
+    ancestorOrigin: '',
+    config: {
+      canFixError: false
     }
-
-    postMessage({ type: PostMessageType.UPDATE_CODE, code });
-  }, []);
+  });
+  useEffect(() => { setAppState(state => ({ ...state, ancestorOrigin: window.location.origin })); }, []);
+  useEffect(() => { setAppState(state => ({ ...state, theme })) }, [theme]);
+  useEffect(() => { if(artifact.source_code) setAppState(state => ({ ...state, code: artifact.source_code as string })) }, [artifact.source_code]);
+  useEffect(() => { postMessage({ type: PostMessageType.UPDATE_STATE, stateChange: appState }) }, [appState, postMessage]);
 
   const handleMessage = useCallback(
     async (event: MessageEvent<StliteMessage>) => {
@@ -63,13 +61,19 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
         return;
       }
 
-      if (
-        data.type === RecieveMessageType.SCRIPT_RUN_STATE_CHANGED &&
-        data.scriptRunState === ScriptRunState.RUNNING
-      ) {
+      if (data.type === RecieveMessageType.READY) {
         setState(State.READY);
+        return;
       }
+
       if (data.type === RecieveMessageType.REQUEST) {
+        const respond = (payload: unknown = undefined) =>
+          postMessage({
+            type: PostMessageType.RESPONSE,
+            request_id: data.request_id,
+            payload,
+          });
+
         try {
           switch (data.request_type) {
             case 'modules_to_packages':
@@ -77,53 +81,29 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
                 data.payload.modules,
                 token
               );
-              postMessage({
-                type: PostMessageType.RESPONSE,
-                request_id: data.request_id,
-                payload: packagesResponse,
-              });
+              respond(packagesResponse);
               break;
+
             case 'chat_completion':
-              const response = await createChatCompletion(data.payload, token);
+              const response = await createChatCompletion(
+                data.payload,
+                token
+              );
               const message = response?.choices[0]?.message?.content;
               if (!message) throw new Error(); // missing completion
-              postMessage({
-                type: PostMessageType.RESPONSE,
-                request_id: data.request_id,
-                payload: { message },
-              });
+              respond({ message });
               break;
           }
         } catch (err) {
-          postMessage({
-            type: PostMessageType.RESPONSE,
-            request_id: data.request_id,
-            payload: { error: getErrorMessage(err) },
-          });
+          respond({ error: getErrorMessage(err) });
         }
       }
     },
-    [token]
+    [token, postMessage]
   );
-
-  const handleIframeLoad = useCallback(() => {
-    updateTheme(theme);
-    setFullscreen(true);
-  }, [theme, updateTheme, setFullscreen]);
-
-  useEffect(() => {
-    updateTheme(theme);
-  }, [theme, updateTheme]);
-
-  useEffect(() => {
-    if (state === State.READY) {
-      updateCode(code);
-    }
-  }, [code, state, theme, updateCode]);
 
   useEffect(() => {
     window.addEventListener('message', handleMessage);
-
     return () => {
       window.removeEventListener('message', handleMessage);
     };
@@ -143,7 +123,7 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
           'allow-popups-to-escape-sandbox',
         ].join(' ')}
         className="h-full w-full"
-        onLoad={handleIframeLoad}
+        onLoad={() => setIframeLoadCount(i => i + 1)}
       />
 
       {state === State.LOADING && (
@@ -155,18 +135,20 @@ export function ArtifactSharedIframe({ artifact, token }: Props) {
   );
 }
 
+interface AppState {
+  fullscreen: boolean,
+  theme: 'light' | 'dark' | 'system',
+  code: string,
+  config: {
+    canFixError: boolean
+  },
+  ancestorOrigin: string,
+}
+
 type PostMessage =
   | {
-      type: PostMessageType.UPDATE_CODE;
-      code: string;
-    }
-  | {
-      type: PostMessageType.UPDATE_THEME;
-      theme: Theme;
-    }
-  | {
-      type: PostMessageType.SET_FULLSCREEN;
-      value: boolean;
+      type: PostMessageType.UPDATE_STATE;
+      stateChange: Partial<AppState>;
     }
   | {
       type: PostMessageType.RESPONSE;
@@ -175,18 +157,8 @@ type PostMessage =
     };
 
 enum PostMessageType {
-  UPDATE_CODE = 'bee:updateCode',
-  UPDATE_THEME = 'bee:updateTheme',
-  SET_FULLSCREEN = 'bee:setFullscreen',
-  // TODO: Add error handling
+  UPDATE_STATE = 'bee:updateState',
   RESPONSE = 'bee:response',
-  ERROR = 'bee:error',
-}
-
-enum ScriptRunState {
-  INITIAL = 'initial',
-  NOT_RUNNING = 'notRunning',
-  RUNNING = 'running',
 }
 
 enum State {
@@ -195,14 +167,13 @@ enum State {
 }
 
 enum RecieveMessageType {
-  SCRIPT_RUN_STATE_CHANGED = 'SCRIPT_RUN_STATE_CHANGED',
+  READY = 'bee:ready',
   REQUEST = 'bee:request',
 }
 
 export type StliteMessage =
   | {
-      type: RecieveMessageType.SCRIPT_RUN_STATE_CHANGED;
-      scriptRunState: ScriptRunState;
+      type: RecieveMessageType.READY;
     }
   | {
       type: RecieveMessageType.REQUEST;
