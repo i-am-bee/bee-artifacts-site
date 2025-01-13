@@ -1,5 +1,23 @@
 import type { NextConfig } from 'next';
 
+const svgrLoader = {
+  loader: '@svgr/webpack',
+  options: {
+    svgoConfig: {
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+            },
+          },
+        },
+      ],
+    },
+  },
+};
+
 const nextConfig: NextConfig = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
@@ -19,7 +37,7 @@ const nextConfig: NextConfig = {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ['@svgr/webpack'],
+        use: [svgrLoader],
       }
     );
 
@@ -32,7 +50,7 @@ const nextConfig: NextConfig = {
     turbo: {
       rules: {
         '*.svg': {
-          loaders: ['@svgr/webpack'],
+          loaders: [svgrLoader],
           as: '*.ts',
         },
       },

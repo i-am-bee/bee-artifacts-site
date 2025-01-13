@@ -52,11 +52,18 @@ export default {
           letterSpacing: '0.01rem',
         },
       ],
+      20: [
+        '1.25rem',
+        {
+          lineHeight: `${26 / 20}`,
+          fontWeight: theme('fontWeight.normal'),
+        },
+      ],
       h1: [
         '2.625rem',
         {
           lineHeight: `${50 / 42}`,
-          fontWeight: theme('fontWeight.normal'),
+          fontWeight: theme('fontWeight.light'),
         },
       ],
       h2: [
@@ -68,6 +75,7 @@ export default {
       ],
     }),
     fontWeight: {
+      light: '300',
       normal: '400',
       semibold: '600',
     },
