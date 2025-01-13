@@ -5,8 +5,9 @@ import { Checkbox } from '@/components/ui/Checkbox';
 import { Modal } from '@/components/ui/Modal';
 import { useStorage } from '@/hooks/useStorage';
 import { ArrowRight } from '@carbon/icons-react';
+import Lottie from 'lottie-react';
 import { ChangeEvent, useCallback, useState } from 'react';
-import Icon from './WarningModalIcon.svg';
+import animation from './WavingBeeAnimation.json';
 
 interface Props {
   artifactId: string;
@@ -43,8 +44,12 @@ export function WarningModal({ artifactId }: Props) {
   return (
     <Modal>
       <div className="mb-4 flex aspect-[544/256] items-center justify-center rounded-2 bg-layer p-5">
-        <div className="w-full max-w-[4.125rem] md:max-w-[8.25rem]">
-          <Icon />
+        <div className="w-full max-w-[5.625rem] md:max-w-[11.25rem]">
+          <Lottie
+            className="[&_path]:fill-current"
+            animationData={animation}
+            loop={false}
+          />
         </div>
       </div>
 
