@@ -12,10 +12,14 @@ export default function GlobalError({
   reset: () => void;
 }) {
   return (
-    <ErrorPage title={error.message}>
-      <Button kind="secondary" size="lg" Icon={Restart} onClick={reset}>
-        Try again
-      </Button>
+    <ErrorPage>
+      <div className="flex flex-col items-center gap-y-6 text-center">
+        <h1>{error.message}</h1>
+
+        <Button kind="secondary" size="lg" Icon={Restart} onClick={reset}>
+          Try again
+        </Button>
+      </div>
     </ErrorPage>
   );
 }
